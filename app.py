@@ -16,7 +16,7 @@ def webhook():
     # И слать по полученному списку
     # bot.send_message()
     for user in users:
-        bot.send_message(user, ':)')
+        bot.send_message(user, rewriteJSON("/soon"))
     return response, 200
 
 
@@ -27,3 +27,18 @@ def read2list(file):
     file.close()
 
     return lines
+
+# x - на что изменено, у - доска, z - что изменено(заголовок/описание), а - название задачи, b - старая строка
+def rewriteJSON(dictionary):
+    x = dictionary["toString"]
+    y = dictionary["key"]
+    z = dictionary["field"]
+    a = dictionary["summary"]
+    b = dictionary["fromString"]
+    if z == "description":
+        line = "Описание задачи " + a + " изменено: " + x + "(Доска " + y + ")"
+
+    else:
+        line = "Задача " + b + " переименована в " + x
+
+    return line
