@@ -13,10 +13,11 @@ def webhook():
     # Вот тут надо доставать откуда-то ID для рассылки
     data = request.get_json()
     response = json.dumps(data, indent=2)
+    data = json.load(data)
     # И слать по полученному списку
     # bot.send_message()
     for user in users:
-        bot.send_message(user, rewriteJSON("/soon"))
+        bot.send_message(user, rewriteJSON(data))
     return response, 200
 
 
