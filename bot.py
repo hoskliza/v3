@@ -1,7 +1,7 @@
 import telebot
 
 
-tokenbot = "1234522170:AAHCG2bvkq8YwPdck5nCO8D0Gapuq_TmUS4"
+tokenbot = "1199790744:AAHJm58PvSbg4QaKX9dN3EAQ6Z7OcHao_Lk"
 bot = telebot.TeleBot(tokenbot)
 
 
@@ -15,10 +15,10 @@ def start(message):
 def agree(message):
     # Вот здесь надо куда-нибудь записывать ID пользователя для рассылки
     user = message.chat.id
-    file = open('userData.log', 'r+')
+    file = open('userData.log', 'a+')
     data = read2list('userData.log')
-    if data.index(user) > len(data):
-        file.write(user)
+    if user not in data:
+        file.write(str(user) + '\n')
     bot.send_message(user, 'Подписка на уведомления оформлена')
 
 
@@ -26,7 +26,7 @@ def agree(message):
 def stop(message):
     user = message.chat.id
     bot.send_message(user, 'Подписка приостановлена')
-    file = open('userData.log', 'r+')
+    file = open('userData.log', 'a+')
     file = file.replace(user, '\n', '')
     file.close()
 
